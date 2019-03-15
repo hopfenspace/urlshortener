@@ -24,7 +24,12 @@ class RequestHandler(BaseHTTPRequestHandler):
 		self.wfile.write(msg.encode("utf-8"))
 
 	def do_GET(self):
-		if self.path in urls:
+		if self.path == "/url-shortener":
+			self.send_response(200)
+			self.end_headers()
+			with open("interface.html", "r") as fd:
+				self.send(fd.read())
+		elif self.path in urls:
 			self.send_response(302)
 			self.send_header('Content-type', 'text/text; charset=utf-8')
 			self.send_header("Location", quote(urls[self.path], safe="/:."))
