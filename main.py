@@ -44,7 +44,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 		length = int(self.headers["Content-Length"])
 		data = parse_qs(self.rfile.read(length).decode("utf-8"))
 
-		if "path" in data and "url" in data:
+		if "path" in data and "url" in data and "path" != "/":
 			path = data["path"][0]
 			url = data["url"][0].replace(" ", "+")
 			if path[0] != "/":
