@@ -35,15 +35,15 @@ class RequestHandler(BaseHTTPRequestHandler):
 		self.send("")
 
 	def do_GET(self):
-		lowest_domain = self.headers["host"].split(".")[0]
+		subdomain = "/" + self.headers["host"].split(".")[0]
 
 		if self.path == "/url-shortener":
 			self.send_response(200)
 			self.end_headers()
 			with open("interface.html", "r") as fd:
 				self.send(fd.read())
-		elif self.path == "/" and lowest_domain in urls:
-			self.redirectTo(urls[lowest_domain])
+		elif self.path == "/" and subdomain in urls:
+			self.redirectTo(urls[subdomain])
 		elif self.path in urls:
 			self.redirectTo(urls[self.path])
 		else:
